@@ -1,9 +1,9 @@
-#include<sys/epoll.h>
-#include<arpa/inet.h>
-#include<cstring>
-#include<iostream>
-#include<fcntl.h>
-#include<unistd.h>
+#include <sys/epoll.h>
+#include <arpa/inet.h>
+#include <cstring>
+#include <iostream>
+#include <fcntl.h>
+#include <unistd.h>
 
 void Epoll_add_event(int epollfd, int fd, int event)
 {
@@ -22,52 +22,63 @@ void Server()
     addr.sin_port = htons(9527);
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-    if(bind(sockfd, (struct sockaddr*)&addr, sizeof(addr)) == -1)
+    if (bind(sockfd, (struct sockaddr *)&addr, sizeof(addr)) == -1)
     {
-        std::cout << "bind error" << "\n";
+        std::cout << "bind error"
+                  << "\n";
         return;
     }
-    if(listen(sockfd, 5) == -1)
+    if (listen(sockfd, 5) == -1)
     {
-        std::cout << "listen error" << "\n";
+        std::cout << "listen error"
+                  << "\n";
         return;
     }
-    std::cout << "listen OK............" << "\n";
+    std::cout << "listen OK............"
+              << "\n";
 
     int epoll_fd = epoll_create(1024);
-    if(epoll_fd == -1)
+    if (epoll_fd == -1)
     {
-        std::cout << "epoll create failed................" << "\n";
+        std::cout << "epoll create failed................"
+                  << "\n";
         return;
     }
 
     Epoll_add_event(epoll_fd, sockfd, EPOLLIN);
     epoll_event all_events[100];
-    while(true)
+    while (true)
     {
-        std::cout << "EPOLL waiting................" << "\n";
+        std::cout << "EPOLL waiting................"
+                  << "\n";
         int num = epoll_wait(epoll_fd, all_events, 100, 1000);
-        for(int i = 0; i < num; i++)
+        for (int i = 0; i < num; i++)
         {
             int fd = all_events[i].data.fd;
-            if(EPOLLIN == all_events[i].events)
+            if (EPOLLIN == all_events[i].events)
             {
-                //接受客户端请求的连接
-                if(fd == sockfd) {
+                // 接受客户端请求的连接
+                if (fd == sockfd)
+                {
                     int clientfd = accept(sockfd, NULL, NULL);
-                    if(clientfd == -1) {
+                    if (clientfd == -1)
+                    {
                         std::cout << "accept error.............\n";
                         return;
-                    }else {
+                    }
+                    else
+                    {
                         std::cout << "================>accepct new client:" << clientfd << std::endl;
                         Epoll_add_event(epoll_fd, clientfd, EPOLLIN);
                     }
                 }
-                //读取客户端发来的数据
-                else {
+                // 读取客户端发来的数据
+                else
+                {
                     char buf[128] = {0};
                     size_t size = read(fd, buf, sizeof(buf));
-                    if(size > 0) {
+                    if (size > 0)
+                    {
                         std::cout << "recv from clientfd:" << fd << ", " << buf << std::endl;
                     }
                 }
