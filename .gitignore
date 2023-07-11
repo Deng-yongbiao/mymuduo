@@ -1,5 +1,3 @@
 lib
 build
-./build/*
-./lib
 .vscode
