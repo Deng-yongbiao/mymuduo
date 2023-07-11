@@ -126,3 +126,10 @@ Channel类则封装了一个 [fd] 和这个 [fd感兴趣事件] 以及事件监�
     ```
 
     当调用```epoll_wait()```后，可以得知事件监听器上哪些Channel（文件描述符）发生了哪些事件，事件发生后自然就要调用这些Channel对应的处理函数。 ```Channel::HandleEvent```，让每个发生了事件的Channel调用自己保管的事件处理函数。每个Channel会根据自己文件描述符实际发生的事件（通过Channel中的revents_变量得知）和感兴趣的事件（通过Channel中的events_变量得知）来选择调用read_callback_和/或write_callback_和/或close_callback_和/或error_callback_。
+
+### 2.3 三大核心模块之一：Poller/Epoller
+
+#### 2.3.1 Poller和EpollPoller概述
+
+Poller负责监听文件描述符事件是否触发以及返回发生事件的文件描述符以及具体事件。
+Muduo实现了Poll和Epoll两种IO多路复用模型来进行事件监听。默认是使用epoll来实现，也可选择poll。```Poller```是实现poll和epoll的抽象虚类，与监听文件描述符和返回监听结果的具体方法也基本上是在这两个派生类中实现。```EpollPoller```就是封装了用epoll方法实现的与事件监听有关的各种方法，```PollPoller```就是封装了poll方法实现的与事件监听有关的各种方法.

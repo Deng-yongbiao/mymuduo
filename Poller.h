@@ -20,13 +20,14 @@ public:
     virtual Timestamp poll(int timeoutMs, ChannelList *activeChannels) = 0;
     virtual void updateChannel(Channel *channel) = 0;
     virtual void removeChannel(Channel *channel) = 0;
-    //判断channel是否存在在list中
+    // 判断channel是否存在在list中
     bool hasChannel(Channel *channel) const;
     // Eventloop 可以通过该接口获取默认的IO复用的具体实现
-    static Poller* newDefaultPoller(EventLoop* loop);
+    static Poller *newDefaultPoller(EventLoop *loop);
+
 protected:
-    //map的key是socket的文件描述符sockfd     value是通道Channel
-    using ChannelMap = std::unordered_map<int, Channel*>;
+    // map的key是socket的文件描述符sockfd     value是通道Channel
+    using ChannelMap = std::unordered_map<int, Channel *>;
     ChannelMap channels_;
 
 private:
