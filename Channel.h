@@ -15,7 +15,7 @@ class EventLoop; //前置声明，只能作为指针或引用，不能调用对�
  * 还绑定了Poller 返回的具体事件
  */
 class Channel : noncopyable
-{
+{以训练类不敏感的方式利用高级信息来提高少镜头分割的性能。
 public:
     using EventCallback     = std::function<void()>;
     using ReadEventCallback = std::function<void(Timestamp)>;
@@ -72,7 +72,7 @@ private:
     const int fd_;    // fd, poller 监听的文件描述符
     int events_;      // 注册fd感兴趣的事件,如EPOLLIN、EPOLLOUT事件
     int revents_;     // poller选择其返回具体发生的事件
-    int index_;       //
+    int index_;       // 用于标识Channel的状态
 
     std::weak_ptr<void> tie_;
     bool tied_;
