@@ -43,7 +43,7 @@ public:
 
     
     //设置fd相应的事件状态
-    void eableReading() { events_ |= KReadEvent; update(); }
+    void enableReading() { events_ |= KReadEvent; update(); }
     void disableReading() { events_ &= ~KReadEvent; update(); }
     void enableWriting() { events_ |= KWriteEvent; update(); }
     void disableWriting() { events_ &= ~KWriteEvent; update(); }
