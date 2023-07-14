@@ -15,7 +15,7 @@ class EventLoop; //前置声明，只能作为指针或引用，不能调用对�
  * 还绑定了Poller 返回的具体事件
  */
 class Channel : noncopyable
-{以训练类不敏感的方式利用高级信息来提高少镜头分割的性能。
+{
 public:
     using EventCallback     = std::function<void()>;
     using ReadEventCallback = std::function<void(Timestamp)>;
