@@ -68,7 +68,7 @@ void Server()
                     }
                     else
                     {
-                        std::cout << "================>accepct new client:" << clientfd << std::endl;
+                        std::cout << "================>accept new client:" << clientfd << std::endl;
                         Epoll_add_event(epoll_fd, clientfd, EPOLLIN);
                     }
                 }
