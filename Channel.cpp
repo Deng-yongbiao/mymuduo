@@ -1,4 +1,5 @@
 #include "Channel.h"
+#include "EventLoop.h"
 
 #include <sys/epoll.h>
 

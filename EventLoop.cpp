@@ -32,8 +32,7 @@ EventLoop::EventLoop()
       threadId_(CurrentThread::tid()),
       poller_(Poller::newDefaultPoller(this)),
       wakeupfd_(createEventfd()),
-      wakeupChannel_(new Channel(this, wakeupfd_)),
-      currentActiveChannel_(nullptr)
+      wakeupChannel_(new Channel(this, wakeupfd_))
 {
     LOG_DEBUG("EventLoop created %p in thread %d \n", this, threadId_);
     if (t_loopInThisThread)
