@@ -36,7 +36,7 @@ public:
 
     //由channel调用，然后这个函数调用Poller里面的方法
     void updateChannel(Channel* channel);
-    void removeChannel(Channel*, channel);
+    void removeChannel(Channel* channel);
     bool hasChannel(Channel* channel);
     //判断EventLoop对象是否在自己的线程里面
     bool isInLoopThread() const { return threadId_ == CurrentThread::tid(); }
