@@ -28,9 +28,9 @@ int createEventfd()
 EventLoop::EventLoop()
     : looping_(false),
       quit_(false),
-      callingPendingFunctors_(false),
       threadId_(CurrentThread::tid()),
       poller_(Poller::newDefaultPoller(this)),
+      callingPendingFunctors_(false),
       wakeupfd_(createEventfd()),
       wakeupChannel_(new Channel(this, wakeupfd_))
 {
@@ -130,7 +130,7 @@ void EventLoop::handleRead()
     ssize_t n = read(wakeupfd_, &one, sizeof one);
     if (n != sizeof one)
     {
-        LOG_ERROR("EventLoop::handleRead() reads %d bytes instead of 8\n", n);
+        LOG_ERROR("EventLoop::handleRead() reads %ld bytes instead of 8\n", n);
     }
 }
 
